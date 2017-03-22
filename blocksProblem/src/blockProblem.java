@@ -11,7 +11,7 @@ public class blockProblem {
 		Stack<Integer>[] world = new Stack[initialize.nextInt()];
 		// The for loop initializes each stack (or else they will all be Null) and adds the value equivalent to which numbered "block" they are.
 		// This will allow for pushing and popping onto other stacks in the array, as the problem specifies.
-		for(int i = 0; i<world.length-1;i++){
+		for(int i = 0; i<world.length;i++){
 			world[i] = new Stack<Integer>();
 			world[i].add(i);
 		}
@@ -20,14 +20,11 @@ public class blockProblem {
 		while (true) {
 			String command = keyboard.nextLine();
 			if (command.equals("quit")){
-				
+				endPrint(world);
 				break;
 			}
 			String[] com = command.split(" ");
-			if (com[0].equals("get")){
-				printStack(world[Integer.parseInt(com[1])]);
-			}
-			else if (com.length!=4 || Integer.parseInt(com[1])==Integer.parseInt(com[3])){
+			if (com.length!=4 || Integer.parseInt(com[1])==Integer.parseInt(com[3])){
 				System.out.println("Invalid Command");
 			}
 			else{
@@ -60,7 +57,7 @@ public class blockProblem {
 	public static void moveOnto(Stack<Integer>[] arr, int a, int b){
 		int aLoc = 0;
 		int bLoc = 0;
-		for (int i = 0; i < arr.length-1; i++){
+		for (int i = 0; i < arr.length; i++){
 			if (arr[i].contains(a)){
 				aLoc = i;
 			}
@@ -75,7 +72,6 @@ public class blockProblem {
 			arr[arr[bLoc].peek()].push(arr[bLoc].pop());
 		}
 		arr[bLoc].push(arr[aLoc].pop());
-		printStack(arr[bLoc]);
 	}
 	
 	
@@ -84,7 +80,7 @@ public class blockProblem {
 	public static void moveOver(Stack<Integer>[] arr, int a, int b){
 		int aLoc = 0;
 		int bLoc = 0;
-		for (int i = 0; i < arr.length-1;i++){
+		for (int i = 0; i < arr.length;i++){
 			if (arr[i].contains(a)){
 				aLoc = i;
 			}
@@ -96,7 +92,6 @@ public class blockProblem {
 			arr[arr[aLoc].peek()].push(arr[aLoc].pop());
 		}
 		arr[bLoc].push(arr[aLoc].pop());
-		printStack(arr[bLoc]);
 	}
 
 	/* where a and b are block numbers, moves the pile of blocks consisting of block a, and any blocks
@@ -106,7 +101,7 @@ public class blockProblem {
 	public static void pileOnto(Stack<Integer>[] arr, int a, int b){
 		int aLoc = 0;
 		int bLoc = 0;
-		for (int i = 0; i < arr.length-1;i++){
+		for (int i = 0; i < arr.length;i++){
 			if (arr[i].contains(a)){
 				aLoc = i;
 			}
@@ -120,7 +115,6 @@ public class blockProblem {
 		while(!arr[a].empty()){
 			arr[b].push(arr[a].pop());
 		}
-		printStack(arr[b]);
 	}
 	
 	/* where a and b are block numbers, puts the pile of blocks consisting of block a, and any blocks
@@ -129,7 +123,7 @@ public class blockProblem {
 	public static void pileOver(Stack<Integer>[] arr, int a, int b){
 		int aLoc = 0;
 		int bLoc = 0;
-		for (int i = 0; i < arr.length-1;i++){
+		for (int i = 0; i < arr.length;i++){
 			if (arr[i].contains(a)){
 				aLoc = i;
 			}
@@ -139,24 +133,29 @@ public class blockProblem {
 		}
 		Stack<Integer> temp = new Stack<Integer>();
 		int j = 0;
-		while(j < arr.length-1){
+		while(j < arr.length){
 			temp.push(arr[aLoc].pop());
 			j++;
 			if (temp.peek()==a){
 				break;
 			}
 		}
-		printStack(temp);
 		System.out.println("//");
 		while(!temp.empty()){
 			arr[bLoc].push(temp.pop());
 		}
-		printStack(arr[b]);
 	}
-	//This method is simply for testing that my methods are doing the correct things.
-	public static void printStack(Stack<Integer> stack){
-		for(Integer i : stack){
-			System.out.println(i);
+
+	public static void endPrint(Stack<Integer>[] arr){
+		for (int i = 0; i < arr.length; i++){
+			String output = i +": ";
+			if(!arr[i].empty()){
+				for (Integer j : arr[i]){
+					output += j + " ";
+				}
+			}
+			System.out.println(output);
 		}
 	}
+	
 }
