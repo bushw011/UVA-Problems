@@ -5,7 +5,6 @@ import java.util.Vector;
 public class blockProblem {
 
 	public static void main(String[] args) {
-		System.out.println("Initialize World:");
 		// Scanner that asks the user to specify the length of the array that will represent the "Block World".
 		Scanner initialize = new Scanner(System.in);
 		Stack<Integer>[] world = new Stack[initialize.nextInt()];
@@ -140,7 +139,6 @@ public class blockProblem {
 				break;
 			}
 		}
-		System.out.println("//");
 		while(!temp.empty()){
 			arr[bLoc].push(temp.pop());
 		}
